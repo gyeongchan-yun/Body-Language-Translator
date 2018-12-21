@@ -3,6 +3,7 @@ Body Language Translator
 
 UNIST CSE 2018-fall Deep Learning Project
 -----------------------------------------
+![v0 0 1-demo](https://user-images.githubusercontent.com/30262658/50344588-f7983680-056e-11e9-9134-aef8ca680149.gif)  
 
 Version
 -------
