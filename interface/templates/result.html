@@ -1,0 +1,176 @@
+<!doctype html>
+<title>papago</title>
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<title>Hello...</title>
+<style type="text/css">
+
+*{
+    margin : 0;
+
+}
+.container{
+	margin : 0;
+	width: 100vw;
+	height: 100vh;
+}
+#header{
+	width: 100vw;
+	height: 5vh;
+	text-align: center;
+	padding-top: 1vh;
+	border-bottom: thin solid rgba(0,0,0,0.1);
+}
+
+
+.contents{
+	width: 50%;
+	height: 50vh;
+	margin: 2vw;
+	border: 1px solid #ddd;
+
+}
+
+
+.contents_box{
+	width: 90vw;
+	margin: 5vw 5vh;
+	height: 55vh;
+	display: flex;
+    flex-direction: row;
+	justify-content: center;
+
+}
+
+.contents_top{
+	border-bottom: thin solid rgba(0,0,0,0.1);
+}
+
+.contents_middle{
+	width: 90%;
+	height: 40vh;
+	padding : 0 5%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	line-height: 10vh;
+
+}
+.contents_bottom{
+	border-top: thin solid rgba(0,0,0,0.1);
+}
+
+.top_bottom{
+
+	width: 90%;
+	height: 5vh;
+	line-height : 5vh;
+	padding : 0 5%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 23px;
+}
+
+.button{
+	margin-left : 10vw;
+}
+img{
+	width: 100%;
+	height:100%;
+}
+/*#mainContent {*/
+/*	font-family: Arial, Helvetica, sans-serif;*/
+/*	font-size: xx-large;*/
+/*	font-weight: bold;*/
+/*	background-color: #E3F0FB;*/
+/*	border-radius: 4px;*/
+/*	padding: 10px;*/
+/*	text-align: center;*/
+/*}*/
+/*.buttonStyle {*/
+/*	border-radius: 4px;*/
+/*	border: thin solid #F0E020;*/
+/*	padding: 5px;*/
+/*	background-color: #F8F094;*/
+/*	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;*/
+/*	font-weight: bold;*/
+/*	color: #663300;*/
+/*	width: 75px;*/
+/*}*/
+
+/*.buttonStyle:hover {*/
+/*	border: thin solid #FFCC00;*/
+/*	background-color: #FCF9D6;*/
+/*	color: #996633;*/
+/*	cursor: pointer;*/
+/*}*/
+/*.buttonStyle:active {*/
+/*	border: thin solid #99CC00;*/
+/*	background-color: #F5FFD2;*/
+/*	color: #669900;*/
+/*	cursor: pointer;*/
+/*}*/
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+	<div id="header">
+	<img src="static/images/papago.svg">
+	</div>
+	<div class="contents_box">
+		<div class="contents">
+			<div class="upload contents_top top_bottom">
+				Upload
+			</div>
+			<div class="contents_middle">
+        {% if filename %}
+            <img src="{{ url_for('send_file', filename=filename) }}">
+        {% else %}
+            <<img src="static/images/okay.jpeg"/>
+        {% endif %}
+			</div>
+			<div class="contents_bottom top_bottom">
+
+
+
+
+			</div>
+		</div>
+		<div class="contents">
+			<div class="result contents_top top_bottom">
+				Result
+			</div>
+			<div class="contents_middle">
+				Okay!
+			</div>
+			<div class="contents_bottom top_bottom">
+				Is it right?
+			</div>
+		</div>
+
+	</div>
+<div id="mainContent">
+<!--<p id="helloText">?</p>-->
+
+</div>
+
+
+</div>
+
+
+<!--<script> -->
+<!--var myButton = document.getElementById("clickButton");-->
+<!--var myText = document.getElementById("helloText");-->
+
+<!--myButton.addEventListener('click', doSomething, false)-->
+
+<!--function doSomething() {-->
+<!--	myText.textContent = "hello, world!";-->
+<!--}-->
+<!--</script>-->
+
+</body>

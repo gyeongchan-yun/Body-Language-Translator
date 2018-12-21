@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Handlee|Indie+Flower|Patrick+Hand|Neucha|Caveat|Caveat+Brush|Coming+Soon" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<title>Body Language Translator</title>
+<style type="text/css">
+
+*{
+    margin : 0;
+    /* font-family: 'Patrick Hand', cursive; */
+    font-family: 'Coming Soon', cursive;
+}
+
+
+#header{
+	width: 100%;
+	height: 10vh;
+	text-align: center;
+	padding-top: 1vh;
+	border-bottom: 2px solid #f8f9fa;
+  background-color: #f8f9fa;
+  font-family: 'Indie Flower';
+}
+
+
+.contents{
+	width: 50%;
+	height: 50vh;
+	margin: 2vw;
+	border: 2px solid #f8f9fa;
+
+}
+
+
+.contents_box{
+
+	margin: 5vh 0;
+	height: 55vh;
+	display: flex;
+    flex-direction: row;
+	justify-content: center;
+
+}
+
+.contents_top{
+	border-bottom: 2px solid #f8f9fa;
+  height: 10%;
+  font-size: 1.5em;
+  padding-left: 2%;
+  color: #343a40;
+}
+
+.contents_middle{
+	width: 100%;
+	height: 90%;
+	padding : 2% 2%;
+
+	font-size: 2.5em;
+	line-height: 10vh;
+
+}
+
+.contents_middle1{
+  position: relative;
+  padding : 0;
+}
+
+.right{
+  position: absolute;
+  right: 10vh;
+  font-size: 2rem;
+}
+
+.button{
+	margin-left : 10vw;
+}
+
+img, video{
+	width: 96%;
+	height:96%;
+  margin: 2%;
+  position: absolute;
+}
+
+.none{
+  display: none;
+  margin-top:5%;
+}
+
+#meaning_input{
+  width:40%;
+  display: inline-block;
+}
+
+#or{
+  margin-top:1%;
+}
+
+#meaning_form{
+  margin-bottom:5%;
+}
+.header, .container{
+	position:relative;
+}
+.btn-info{
+	position:absolute;
+	top:1.5%;
+	right:3vw;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+	<div id="header">
+     	 <h1>Body Language Translator</h1>
+		
+	<a href="/" class="btn btn-info btn-lg">
+          <i class="fas fa-home"></i> Home
+        </a>
+	</div>
+	<div class="contents_box">
+		<div class="contents rounded">
+			<div class="upload contents_top top_bottom">
+				Upload
+			</div>
+        <div class="contents_middle contents_middle1">
+
+			<video src="{{ url_for('send_file', filename=filename) }}" autoplay="autoplay"></video>
+             <img id="upload-img" src="{{ url_for('send_file', filename=filename) }}" onerror="hideImgAndRight(this);" alt=""/>
+		</div>
+
+		</div>
+		<div class="contents rounded">
+			<div class="result contents_top top_bottom">
+				Result
+			</div>
+			<div class="contents_middle" id="result_text">
+        loading..
+			</div>
+		</div>
+	</div>
+  <div id="right" class="right">
+    Is it right?
+    <button class="btn btn-success" onclick="location.href='/yes'">Yes</button>
+    <button class="btn btn-danger" id="no_btn">No</button>
+  </div>
+
+<div id="show-if-no" class="none">
+  <div id="choose">
+    <h4>Choose the correct meaning.</h4>
+  </div>
+  <div id="btn-container" class="btn-group" role="group" aria-label="Basic example">
+
+  </div>
+  <div id="or">
+    <h4>or,</h4>
+  </div>
+  <form id="meaning_form" action = "/new_meaning" method = "POST"
+     enctype = "multipart/form-data">
+    <input type="text" id="meaning_input" class="form-control" placeholder="Enter the correct meaning" name = "meaning">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+<!-- function openEntWebview(num){
+  var entertainment = document.getElementById("entertainment");
+  var entLogoBtn = document.getElementsByClassName("ent-logo");
+  var webviewContainer = document.getElementsByClassName("webview-container");
+  entLogoBtn[num].addEventListener("click", function(){
+    webviewContainer[num].style.display = 'block';
+    entertainment.style.display = 'none';
+  }, false);
+}
+
+for (i = 0; i < 7; i++)
+  openEntWebview(i); -->
+
+
+</div>
+
+
+
+
+</body>
+
+
+<script>
+
+
+
+  window.setInterval(function() {
+    var oReq = new XMLHttpRequest();
+    oReq.addEventListener("load", function() {
+      if (oReq.status === 200) {
+        // location.href = "/meaning";
+        document.getElementById("result_text").innerHTML = oReq.responseText;
+      }
+    });
+    oReq.open("GET", "/meaning");
+    oReq.send();
+  }, 500);
+
+
+  function openLabelButtons(){
+    var noBtn = document.getElementById("no_btn");
+    noBtn.addEventListener("click", function(){
+
+          var labelListReq = new XMLHttpRequest();
+          labelListReq.open("GET", "/list");
+          labelListReq.send();
+          labelListReq.addEventListener("load", function() {
+            var list = labelListReq.responseText;
+            var listArr=labelListReq.responseText.split('/');
+            var showIfNo = document.getElementById("show-if-no");
+            var btnContainer = document.getElementById("btn-container");
+            if(showIfNo.style.display != 'block')
+            {
+                showIfNo.style.display = 'block';
+            // var none=document.getElementsByClassName('none');
+            // var btnContainer = document.getElementById("btn-container");
+            // for(j=0; j<none.length; j++)
+            //   none[i].style.display = 'block';
+              for(i=0; i<listArr.length; i++){
+                  var jbBtn = document.createElement( 'button' );
+                  jbBtn.className = "btn btn-secondary";
+                  var jbBtnText = document.createTextNode( listArr[i]);
+                  jbBtn.appendChild( jbBtnText );
+                  btnContainer.appendChild( jbBtn );
+                  jbBtn.onclick= function() {
+                       window.location.href='/feedback/'+this.innerHTML;
+                 }
+              }
+            }
+          });
+
+
+        // main.style.display = 'none';
+        // todaysEvents.style.display = 'block';
+    }, false);
+  }
+
+  function hideImgAndRight(img)
+  {
+    img.style.display = "none";
+    var right = document.getElementById("right");
+    right.style.display = "none";
+
+  }
+  openLabelButtons();
+
+</script>
