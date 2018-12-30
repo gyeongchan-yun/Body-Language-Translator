@@ -14,7 +14,7 @@ Prerequisites
 - Python 3.5
 - OpenPose
   - https://github.com/CMU-Perceptual-Computing-Lab/openpose
-  - Installation: https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md#installation
+  - [Installation](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md#installation)
 
 OS
 ---
