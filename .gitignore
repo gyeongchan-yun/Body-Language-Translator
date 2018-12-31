@@ -17,3 +17,5 @@ bak
 venv
 
 config/config.conf
+
+interface/*.txt
