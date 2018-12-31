@@ -17,7 +17,7 @@ cd ${new_dir}  # move only files to done/ dir
 rm -rf ${new_dir}/comparison_images/*
 find . -type f -exec mv -t ${done_dir} {} + 
 
-mv ${PROJECT}/image/user_output/* ${PROJECT}/image/test/predict/
+mv ${PROJECT}/image/user_output/* ${PROJECT}/image/test/test_image/
 
 python3 ${PROJECT}/model/dev_predict.py | tail -1 > ${PROJECT}/interface/meaning.txt
 
