@@ -34,14 +34,14 @@ To install site-packages:
 
 Usage
 -----
-Configuration: (Refer to example.conf)
+Configuration: (Refer to example.conf)  
 ```
-$ cd config/
-$ vi config.conf
+$ cp config/example.conf config/config.conf
+Replace ${user-path} in config.conf to real path.
 ```
-
+  
 To open interface on web-browser:
 ```
-$ cd interface/
-$ python user.py
+$ python interface/user.py
 ```
+
