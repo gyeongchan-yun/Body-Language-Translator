@@ -30,6 +30,11 @@ To install site-packages:
 ```
 (venv)$ pip install -r requirements.txt
 ```
+To set up package, add PYTHONPATH to ~/.bashrc:
+```
+export PYTHONPATH=$PYTHONPATH:${user-path}/Body-Language-Translator
+$ source ~/.bashrc
+```
 
 Usage
 -----
