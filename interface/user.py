@@ -61,7 +61,7 @@ def check_video(content):
     Function moves predicted image to predicted label train directory.
 ''' 
 def move_correct_prediction():
-    predicted_files = os.path.join(config['predict_dir'], 'test')
+    predicted_files = os.path.join(config['predict_dir'], 'predict') # TODO: add config
     if len(os.listdir(predicted_files)) == 1: # exists  1 file TODO: move several files
         for fname in os.listdir(predicted_files):
             file_path = os.path.join(predicted_files, fname)
@@ -77,7 +77,7 @@ def move_correct_prediction():
     Function moves predicted image to feedback label train directory.
 '''
 def move_prediction(dst_path):
-    predicted_files = os.path.join(config['predict_dir'], 'test')
+    predicted_files = os.path.join(config['predict_dir'], 'predict')
     if len(os.listdir(predicted_files)) == 1: # exists  1 file TODO: move several files
         for fname in os.listdir(predicted_files):
             file_path = os.path.join(predicted_files, fname)
@@ -85,7 +85,7 @@ def move_prediction(dst_path):
 
 
 def remove_prediction():
-    predicted_files = os.path.join(config['predict_dir'], 'test')
+    predicted_files = os.path.join(config['predict_dir'], 'predict')
     for fname in os.listdir(predicted_files):
         file_path = os.path.join(predicted_files, fname)
         os.remove(file_path)

@@ -8,16 +8,17 @@ from keras.models import load_model
 import numpy as np
 
 import cv2
+
 ''' [code reference]
     bar chart with value - https://stackoverflow.com/questions/6282058/writing-numerical-values-on-the-plot-with-matplotlib
 '''
 
-import configparser 
+import configparser
 
-abs_path = os.environ['PROJECT']
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 config = configparser.ConfigParser()
-config.read(abs_path + '/config/config.conf')
+config.read(dir_path + '/../config/config.conf')
 
 config = config['MODEL']
 
@@ -39,19 +40,18 @@ root_dir = config['image_dir']
 train_dir = os.path.join(root_dir, 'train')
 
 test_dir = config['predict_dir']
-# test_dir = os.path.join(root_dir, 'dev_test')
 
 
 def visualize_prediction(filenames, labels, pred, predictions):
     data_x = np.array(list(labels.values()))
     data_y = np.array(pred[0])
-    
+
     plt.bar(data_x, data_y, color='b')
     for a,b in zip(data_x, data_y):
         plt.text(a, b, str(b))
 
     plt.title('distribution of prediction on '+ filenames[0])
-    plt.savefig(root_path + 'model/chart/predict/predicts_{}.png'.format(predictions[0])) 
+    plt.savefig(root_path + 'model/chart/predict/predicts_{}.png'.format(predictions[0]))
     plt.show()
 
 
@@ -61,7 +61,7 @@ def main():
 
     train_generator = train_datagen.flow_from_directory(
             train_dir,
-            target_size=image_size, 
+            target_size=image_size,
             batch_size = BATCH_SIZE,
             class_mode='categorical')
 
@@ -70,14 +70,14 @@ def main():
             target_size=image_size,
             batch_size=1,
             class_mode=None)
-    
+
     loaded_model = load_model(MODEL)
     loaded_model.compile(loss='categorical_crossentropy', optimizer='adadelta', metrics = ['accuracy'])
 
-    test_generator.reset()
+    test_generator.reset()  # To get output in order
     pred = loaded_model.predict_generator(test_generator)
     print("prediction: \n", pred * 100)
-    
+
     predicted_class_indices=np.argmax(pred,axis=1)
     labels = (train_generator.class_indices)
     labels = dict((v,k) for k,v in labels.items())
