@@ -18,7 +18,7 @@ import configparser
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 config = configparser.ConfigParser()
-config.read(dir_path + '../config/config.conf')
+config.read(dir_path + '/../config/config.conf')
 
 config = config['MODEL']
 
@@ -40,7 +40,6 @@ root_dir = config['image_dir']
 train_dir = os.path.join(root_dir, 'train')
 
 test_dir = config['predict_dir']
-# test_dir = os.path.join(root_dir, 'dev_test')
 
 
 def visualize_prediction(filenames, labels, pred, predictions):
@@ -75,7 +74,7 @@ def main():
     loaded_model = load_model(MODEL)
     loaded_model.compile(loss='categorical_crossentropy', optimizer='adadelta', metrics = ['accuracy'])
 
-    test_generator.reset()
+    test_generator.reset()  # To get output in order
     pred = loaded_model.predict_generator(test_generator)
     print("prediction: \n", pred * 100)
 

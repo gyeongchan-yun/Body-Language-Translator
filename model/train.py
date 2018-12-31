@@ -14,7 +14,7 @@ import configparser
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 config = configparser.ConfigParser()
-config.read(dir_path + '../config/config.conf')
+config.read(dir_path + '/../config/config.conf')
 
 config = config['MODEL']
 
