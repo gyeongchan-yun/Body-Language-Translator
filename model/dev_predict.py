@@ -34,7 +34,7 @@ LEARNING_RATE = float(config['learning_rate'])
 root_dir = config['image_dir']
 train_dir = os.path.join(root_dir, 'train')
 
-test_dir = config['predict_dir']
+test_dir = config['test_dir']
 
 
 def visualize_prediction(filenames, labels, pred, predictions):
