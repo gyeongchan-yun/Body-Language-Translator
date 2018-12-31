@@ -11,15 +11,15 @@ import matplotlib.pyplot as plt
 import configparser
 
 
-abs_path = os.environ['PROJECT']
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 config = configparser.ConfigParser()
-config.read(abs_path + '/config/config.conf')
+config.read(dir_path + '../config/config.conf')
 
 config = config['MODEL']
 
 MODEL = config['model_path']
-ROOT = config['project_root'] 
+ROOT = config['project_root']
 
 CALLBACKS = [
         EarlyStopping(monitor='val_acc', patience=10, mode='max', verbose=1),
@@ -61,7 +61,7 @@ def visualize_accuracy(fitting):
     plt.plot(epochs, val_acc, 'b', label='Validation acc')
     plt.title('Training and validation accuracy')
     plt.legend()
-    
+
     plt.figure()
 
     plt.plot(epochs, loss, 'bo', label='Training loss')
@@ -70,6 +70,7 @@ def visualize_accuracy(fitting):
     plt.legend()
 
     plt.show()
+
 
 def main():
     train_datagen = ImageDataGenerator(rescale=1./255)
