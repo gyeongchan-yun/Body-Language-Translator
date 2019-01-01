@@ -108,8 +108,9 @@ def main():
         validation_steps=STEP_SIZE_VALIDATION,
         callbacks=CALLBACKS)
 
-    bak_model = date + '_model.h5'
-    model.save(ROOT + 'model/saved_model/bak/' + bak_model)
+    bak_model_name = date + '_model.h5'
+    bak_model_path = os.path.join(ROOT, 'model', 'saved_model', 'bak', bak_model_name)
+    model.save(bak_model_path)
 
     if len(sys.argv) == 2:
         if sys.argv[1] == '-v':
