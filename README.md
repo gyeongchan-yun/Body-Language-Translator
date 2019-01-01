@@ -22,19 +22,13 @@ OS
 
 Set Up
 ------
-To activate virtual environment:    
+set up initially:
 ```
-$ virtualenv --system-site-packages -p python3 ./venv
-$ source ./venv/bin/activate
-```    
-To install site-packages:    
+$ source initial-setup.sh
 ```
-(venv)$ pip install -r requirements.txt
+To activate virtual environment:
 ```
-To set up package, add PYTHONPATH to ~/.bashrc:
-```
-export PYTHONPATH=$PYTHONPATH:${user-path}/Body-Language-Translator
-$ source ~/.bashrc
+$ source virtualenv.sh
 ```
 
 Usage
