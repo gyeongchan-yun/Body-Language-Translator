@@ -3,7 +3,7 @@ import sys
 import shutil
 from flask import Flask, abort, render_template, request, send_from_directory, redirect, url_for
 from werkzeug import secure_filename
-import utils.VideoSegment as video_segment
+import utils.video_segment as video_segment
 from collections import OrderedDict
 from utils.config import config
 
@@ -87,8 +87,6 @@ def move_test_image(dst_path):
 
 def remove_test_image():
     for fname in os.listdir(TEST_IMAGE_FOLDER):
-        if fname == '.gitignore':
-            continue
         file_path = os.path.join(TEST_IMAGE_FOLDER, fname)
         os.remove(file_path)
 
@@ -188,7 +186,6 @@ def move_to_correct_feedback_label():
 @app.route('/list')
 def send_label_list():
     label_list = os.listdir(LABELS)
-    label_list.remove('.gitignore')
     return '/'.join(label_list)
 
 

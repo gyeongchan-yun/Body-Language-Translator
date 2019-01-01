@@ -9,8 +9,6 @@ from skimage.measure import compare_ssim
 def image_selector(ImagePath, TargetPath):
     count = 0
     for label in os.listdir(ImagePath):
-        if label == '.gitignore':
-            continue
         file_dir = os.path.join(ImagePath, label)
         file_list = os.listdir(file_dir)
 
