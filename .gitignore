@@ -6,6 +6,7 @@ bak
 
 # image or video file
 *.jpg
+!interface/static/images/*.jpg
 *.png
 *.jpeg
 *.mp4
