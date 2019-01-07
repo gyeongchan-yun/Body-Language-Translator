@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 import utils.video_segment as video_segment
 from utils.config import config
-from utils.logger import infolog
+from utils.logger import infolog, errorlog
 
 config = config['WEB']
 
@@ -65,22 +65,29 @@ def check_video(content):
 
 
 def move_correct_test_image():
+    infolog(__file__, "MOVE test image to correct label directory")
     if len(os.listdir(TEST_IMAGE_FOLDER)) == 1:  # check 1 file exists
         for fname in os.listdir(TEST_IMAGE_FOLDER):
             file_path = os.path.join(TEST_IMAGE_FOLDER, fname)
-            f = open("meaning_temp.txt", "r")
-            prediction = f.read()
-            label = refine_content(prediction)
-            train_dir = os.path.join(LABELS, label.strip())
-            shutil.move(file_path, train_dir)
-
-            os.remove("meaning_temp.txt")
+            try:
+                f = open("meaning_temp.txt", "r")
+            except Exception as e:
+                errorlog(__file__, e)
+            else:
+                prediction = f.read()
+                label = refine_content(prediction)
+                train_dir = os.path.join(LABELS, label.strip())
+                shutil.move(file_path, train_dir)
+                os.remove("meaning_temp.txt")
+            finally:
+                f.close()
 
 
 '''
     Function moves test image to train directory of feedback label.
 '''
 def move_test_image(dst_path):
+    infolog(__file__, "MOVE test image to feedback label directory")
     if len(os.listdir(TEST_IMAGE_FOLDER)) == 1:  # check 1 file exists
         for fname in os.listdir(TEST_IMAGE_FOLDER):
             file_path = os.path.join(TEST_IMAGE_FOLDER, fname)
@@ -88,6 +95,7 @@ def move_test_image(dst_path):
 
 
 def remove_test_image():
+    infolog(__file__, "REMOVE existing test image")
     for fname in os.listdir(TEST_IMAGE_FOLDER):
         file_path = os.path.join(TEST_IMAGE_FOLDER, fname)
         os.remove(file_path)
@@ -101,6 +109,7 @@ def render_file():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        infolog(__file__, "UPLOAD FILE SUCCESS")
         remove_test_image()  # Initial step: remove previous test image
 
         f = request.files['file']
@@ -111,6 +120,7 @@ def upload_file():
             parsed_name = filename.split(".")
             file_type = parsed_name[len(parsed_name)-1]
             if file_type == 'avi' or file_type == 'mp4':  # video file
+                infolog(__file__, "START VIDEO SEGMENTATION")
                 # call video_segment function
                 comparison_image_path = config['comparison']
                 video_path = os.path.join(config['video'], filename)
@@ -122,6 +132,7 @@ def upload_file():
                     video_path, UPLOAD_FOLDER, comparison_image_path)
 
             else:
+                infolog(__file__, "STORE UPLOAD IMAGE")
                 # store images uploaded by user
                 f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
@@ -154,18 +165,18 @@ def move_to_feedback_label(label):
 
 @app.route('/meaning')
 def send_prediction():
-    infolog(__file__, "Response Prediction")
+    infolog(__file__, "REQUEST PREDICTION")
 
-    while not os.path.isfile("meaning.txt"):
-        continue
-    f = open("meaning.txt", "r")
-    content = f.read()
-    if not content:
-        abort(404)
-    else:
-        # copy predicted label in the case of corrcet feedback
-        shutil.copyfile("meaning.txt", "meaning_temp.txt")
-    f.close()
+    while True:
+        if os.path.isfile("meaning.txt"):
+            with open("meaning.txt", "r") as f:
+                content = f.read()
+            if content:
+                infolog(__file__, "RECEIVE PREDICTION FILE SUCCESS")
+                break
+
+    # copy predicted label in the case of corrcet feedback
+    shutil.copyfile("meaning.txt", "meaning_temp.txt")
 
     os.remove("meaning.txt")
 
@@ -176,7 +187,7 @@ def send_prediction():
         remove_test_image()
         os.remove("meaning_temp.txt")  # no feedback
 
-    infolog(__file__, "Prediction: {}".format(text))
+    infolog(__file__, "RESPONSE PREDICTION: {}".format(text))
     return text
 
 
