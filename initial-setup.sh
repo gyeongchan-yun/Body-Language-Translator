@@ -4,6 +4,14 @@ source ./venv/bin/activate
 
 pip install -r requirements.txt
 
+if [[ ! -d ./logs ]]; then
+    mkdir ./logs
+fi 
+
+if [[ ! -d $PWD/model/saved_model/bak ]]; then
+    mkdir $PWD/model/saved_model/bak
+fi
+
 cd $PWD/image
 
 if [[ ! -e ./test ]]; then
