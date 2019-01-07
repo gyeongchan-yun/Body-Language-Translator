@@ -3,6 +3,7 @@ __pycache__
 
 chart
 bak
+logs
 
 # image or video file
 *.jpg

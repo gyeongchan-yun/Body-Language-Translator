@@ -1,12 +1,14 @@
 import os
 import sys
 import shutil
+
 from flask import Flask, abort, render_template, request, send_from_directory, redirect, url_for
 from werkzeug import secure_filename
-import utils.video_segment as video_segment
 from collections import OrderedDict
-from utils.config import config
 
+import utils.video_segment as video_segment
+from utils.config import config
+from utils.logger import infolog
 
 config = config['WEB']
 
@@ -152,8 +154,10 @@ def move_to_feedback_label(label):
 
 @app.route('/meaning')
 def send_prediction():
-    if not os.path.isfile("meaning.txt"):
-        abort(404)
+    infolog(__file__, "Response Prediction")
+
+    while not os.path.isfile("meaning.txt"):
+        continue
     f = open("meaning.txt", "r")
     content = f.read()
     if not content:
@@ -171,8 +175,8 @@ def send_prediction():
     if check_video(content):
         remove_test_image()
         os.remove("meaning_temp.txt")  # no feedback
-    # TODO: change it as log
-    print("\n================text: {} ==================\n".format(text))
+
+    infolog(__file__, "Prediction: {}".format(text))
     return text
 
 
