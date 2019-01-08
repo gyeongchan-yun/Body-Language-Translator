@@ -83,10 +83,12 @@ def move_correct_test_image():
                 f.close()
 
 
-'''
-    Function moves test image to train directory of feedback label.
-'''
 def move_test_image(dst_path):
+    """ Move test image to train directory on feedback label.
+
+    Args:
+        dst_path: path of train directory on feedback label.
+    """
     infolog(__file__, "MOVE test image to feedback label directory")
     if len(os.listdir(TEST_IMAGE_FOLDER)) == 1:  # check 1 file exists
         for fname in os.listdir(TEST_IMAGE_FOLDER):
@@ -143,7 +145,7 @@ def upload_file():
                                     filename=filename))
 
 
-@app.route('/new_meaning', methods=['GET', 'POST'])  # TODO: rename route with /feedback/new
+@app.route('/feedback/new', methods=['GET', 'POST'])
 def move_to_new_feedback_label():
     if request.method == 'POST':
         new_meaning = request.form['meaning']
@@ -191,14 +193,14 @@ def send_prediction():
     return text
 
 
-@app.route('/yes')  # TODO: rename route to /feedback/correct
+@app.route('/feedback/correct')
 def move_to_correct_feedback_label():
     if os.path.exists("meaning_temp.txt"):
         move_correct_test_image()
     return redirect(url_for('render_file'))
 
 
-@app.route('/list')
+@app.route('/feedback/labels')
 def send_label_list():
     label_list = os.listdir(LABELS)
     return '/'.join(label_list)
