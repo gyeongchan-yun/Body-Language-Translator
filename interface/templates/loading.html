@@ -154,7 +154,7 @@ img, video{
 	</div>
   <div id="right" class="right">
     Is it right?
-    <button class="btn btn-success" onclick="location.href='/yes'">Yes</button>
+    <button class="btn btn-success" onclick="location.href='/feedback/correct'">Yes</button>
     <button class="btn btn-danger" id="no_btn">No</button>
   </div>
 
@@ -168,7 +168,7 @@ img, video{
   <div id="or">
     <h4>or,</h4>
   </div>
-  <form id="meaning_form" action = "/new_meaning" method = "POST"
+  <form id="meaning_form" action = "/feedback/new" method = "POST"
      enctype = "multipart/form-data">
     <input type="text" id="meaning_input" class="form-control" placeholder="Enter the correct meaning" name = "meaning">
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -218,7 +218,7 @@ for (i = 0; i < 7; i++)
     noBtn.addEventListener("click", function(){
 
           var labelListReq = new XMLHttpRequest();
-          labelListReq.open("GET", "/list");
+          labelListReq.open("GET", "/feedback/labels");
           labelListReq.send();
           labelListReq.addEventListener("load", function() {
             var list = labelListReq.responseText;
