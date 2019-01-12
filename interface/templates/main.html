@@ -4,12 +4,9 @@
 <html lang="en-us">
 
 <head>
-
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Caveat|Handlee|Indie+Flower|Permanent+Marker" rel="stylesheet">
-
-</head>
 <style type="text/css">
 
 *{
@@ -39,10 +36,6 @@ body{
     padding-top:5vh;
 
 }
-
-
-
-
 
 .btn-file {
   position: relative;
@@ -89,8 +82,6 @@ body{
 .title{
   marign : 5vh;
 }
-
-
 </style>
 </head>
 
@@ -100,11 +91,6 @@ body{
     <div class="title">
       <h1>Body Language Translator</h1>
     </div>
-      <!-- <form action = "/upload" method = "POST"
-        enctype = "multipart/form-data">
-        <button class="btn">Upload a file</button>
-        <input type="file" name="file" />
-      </form> -->
       <form action = "/upload" method = "POST"
          enctype = "multipart/form-data">
          <label class="btn btn-default btn-file btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
@@ -113,21 +99,8 @@ body{
         <label class="btn btn-default btn-file-inner">
            Submit <input type="submit" style="display: none;">
        </label>
-
       </form>
 
-    <!-- <form action = "/upload" method = "POST"
-       enctype = "multipart/form-data">
-       <input type = "file" name = "file" />
-       <input type = "submit"/>
-    </form> -->
-
   </div>
-
 </body>
 
-<script>
-$('.popover-dismiss').popover({
-  trigger: 'focus'
-})
-</script>

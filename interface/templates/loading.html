@@ -117,7 +117,6 @@ img, video{
 	right:3vw;
 }
 
-
 </style>
 </head>
 
@@ -152,66 +151,44 @@ img, video{
 			</div>
 		</div>
 	</div>
-  <div id="right" class="right">
-    Is it right?
-    <button class="btn btn-success" onclick="location.href='/feedback/correct'">Yes</button>
-    <button class="btn btn-danger" id="no_btn">No</button>
-  </div>
+    <div id="right" class="right">
+      Is it right?
+      <button class="btn btn-success" onclick="location.href='/feedback/correct'">Yes</button>
+      <button class="btn btn-danger" id="no_btn">No</button>
+    </div>
 
-<div id="show-if-no" class="none">
-  <div id="choose">
-    <h4>Choose the correct meaning.</h4>
-  </div>
-  <div id="btn-container" class="btn-group" role="group" aria-label="Basic example">
-
-  </div>
-  <div id="or">
-    <h4>or,</h4>
-  </div>
-  <form id="meaning_form" action = "/feedback/new" method = "POST"
-     enctype = "multipart/form-data">
-    <input type="text" id="meaning_input" class="form-control" placeholder="Enter the correct meaning" name = "meaning">
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
-<!-- function openEntWebview(num){
-  var entertainment = document.getElementById("entertainment");
-  var entLogoBtn = document.getElementsByClassName("ent-logo");
-  var webviewContainer = document.getElementsByClassName("webview-container");
-  entLogoBtn[num].addEventListener("click", function(){
-    webviewContainer[num].style.display = 'block';
-    entertainment.style.display = 'none';
-  }, false);
-}
-
-for (i = 0; i < 7; i++)
-  openEntWebview(i); -->
-
+    <div id="show-if-no" class="none">
+      <div id="choose">
+        <h4>Choose the correct meaning.</h4>
+      </div>
+      <div id="btn-container" class="btn-group" role="group" aria-label="Basic example">
+      </div>
+      <div id="or">
+        <h4>or,</h4>
+      </div>
+      <form id="meaning_form" action = "/feedback/new" method = "POST"
+            enctype = "multipart/form-data">
+        <input type="text" id="meaning_input" class="form-control" placeholder="Enter the correct meaning" name = "meaning">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
 
 </div>
-
-
-
 
 </body>
 
-
 <script>
 
-
-
-  window.setInterval(function() {
+ window.onload = function() {
     var oReq = new XMLHttpRequest();
     oReq.addEventListener("load", function() {
       if (oReq.status === 200) {
-        // location.href = "/meaning";
         document.getElementById("result_text").innerHTML = oReq.responseText;
       }
     });
     oReq.open("GET", "/meaning");
     oReq.send();
-  }, 500);
-
+  };
 
   function openLabelButtons(){
     var noBtn = document.getElementById("no_btn");
