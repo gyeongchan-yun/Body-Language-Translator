@@ -47,7 +47,7 @@ python-debian==0.1.27
 python-systemd==231
 PyWavelets==1.0.1
 pyxdg==0.25
-PyYAML==4.2b1
+PyYAML==5.4
 requests==2.20.0
 schedule==0.5.0
 scikit-image==0.14.1
